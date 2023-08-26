@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Standart_name</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chat-container {
+            width: 90%;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+            padding: 10px;
+            margin: 0 auto;
+        }
+
+        .user-message {
+            background-color: #f1f0f0;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        .assistant-message {
+            background-color: #007bff;
+            color: white;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .input-container {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        .input-container button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function sendMessage() {
+            var userMessage = document.getElementById("user-message").value;
+
+            if (userMessage !== "") {
+                var userMessageContainer = document.createElement("div");
+                userMessageContainer.className = "user-message";
+                userMessageContainer.innerHTML = userMessage;
+
+                document.getElementById("chat-messages").appendChild(userMessageContainer);
+
+                document.getElementById("user-message").value = "";
+
+                // Your backend API call or JavaScript logic goes here to get the assistant's response
+
+                var assistantMessageContainer = document.createElement("div");
+                assistantMessageContainer.className = "assistant-message";
+                assistantMessageContainer.innerHTML = "Assistant's response";
+
+                document.getElementById("chat-messages").appendChild(assistantMessageContainer);
+
+                // Scroll to the bottom of the chat container
+                document.getElementById("chat-container").scrollTop = document.getElementById("chat-container").scrollHeight;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="chat-container" id="chat-container">
+        <div class="assistant-message">
+            Задайте ваш вопрос
+        </div>
+        <div id="chat-messages"></div>
+        <div class="input-container">
+            <input type="text" id="user-message" placeholder="Задайте ваш вопрос">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</body>
+</html>
