@@ -9,7 +9,7 @@ PandasExcelReader = download_loader("PandasExcelReader")
 loader = PandasExcelReader(pandas_config={"header": 0})
 documents = loader.load_data(file=Path('src/data/train_dataset.xlsx'))
 print(f'Loaded {len(documents)} docs')
-print(type(documents))
+print(type(documents[0]))
 '''
 db = DatabaseReader(
     scheme="postgresql",  # Database Scheme

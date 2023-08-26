@@ -1,30 +1,32 @@
-# -*- coding: utf-8 -*-
-import click
-import logging
+from langchain.embeddings.sentence_transformer import SentenceTransformerEmbeddings
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import Chroma
+from langchain.document_loaders import UnstructuredExcelLoader
+from llama_index import download_loader
 from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
+from chromadb.utils import embedding_functions
+import chromadb
+from chromadb.config import Settings
+from embedding import sentence_embeddings
 
+# load the document and split it into chunks
 
-@click.command()
-@click.argument('input_filepath', type=click.Path(exists=True))
-@click.argument('output_filepath', type=click.Path())
-def main(input_filepath, output_filepath):
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
-    """
-    logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
+# split it into chunks
+chroma_client = chromadb.Client()
 
+# create the open-source embedding function
+huggingface_ef = embedding_functions.HuggingFaceEmbeddingFunction(
+    api_key="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",
+    model_name="ai-forever/sbert_large_nlu_ru"
+)
 
-if __name__ == '__main__':
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
+collection = chroma_client.create_collection(name="embedding_vector", embedding_function=huggingface_ef)
+# load it into Chroma
+collection.add(embeddings=sentence_embeddings.tolist(), ids=[str(i) for i in range(0, 2733)])
 
-    # not used in this stub but often useful for finding various files
-    project_dir = Path(__file__).resolve().parents[2]
+# query it
+query = "Какие основания для детской карты?"
+#docs = collection.similarity_search(query)
 
-    # find .env automagically by walking up directories until it's found, then
-    # load up the .env entries as environment variables
-    load_dotenv(find_dotenv())
-
-    main()
+# print results
+print(collection)
