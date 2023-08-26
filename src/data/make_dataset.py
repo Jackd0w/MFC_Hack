@@ -12,7 +12,7 @@ from embedding import sentence_embeddings
 # load the document and split it into chunks
 
 # split it into chunks
-chroma_client = chromadb.Client()
+chroma_client = chromadb.PersistentClient("src/data")
 
 # create the open-source embedding function
 huggingface_ef = embedding_functions.HuggingFaceEmbeddingFunction(
