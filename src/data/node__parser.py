@@ -7,6 +7,6 @@ parser = SimpleNodeParser()
 # Разбиваем на ноды
 nodes = parser.get_nodes_from_documents(documents)
 
-print(len(nodes))
+print(type(nodes))
 
     
