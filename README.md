@@ -1,7 +1,10 @@
 piter_hackaton
 ==============================
 
-A short description of the project.
+Running in a Docker
+
+docker build -t my-flask-app .
+docker run -p 5000:5000 my-flask-app
 
 Project Organization
 ------------
