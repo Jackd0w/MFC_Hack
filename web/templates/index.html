@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Assistant</title>
+</head>
+<body bgcolor="#000" background="../static/background.jpg">
+<div class="chat-container">
+    <div class="chat-header">
+        <h1>Chat Assistant</h1>
+    </div>
+    <div class="chat-messages">
+        <ul>
+            {% for test in tests %}
+            <li>{{ test.content }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <form method="POST" class="chat-input">
+        <input type="text" name="content" id="message-input" placeholder="Введите сообщение">
+        <button type="submit" id="custom-button"></button>
+    </form>
+
+</div>
+</body>
+</html>
+
