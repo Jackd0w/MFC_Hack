@@ -5,6 +5,8 @@ from llama_index import VectorStoreIndex, SimpleDirectoryReader, ServiceContext
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from llama_index.embeddings import LangchainEmbedding
 from node__parser import nodes
+from web.app import Test
+
 
 db2 = chromadb.PersistentClient("src/data")
 collection = db2.get_collection(name="embedding_vector")
@@ -23,5 +25,4 @@ index.insert_nodes(nodes)
 
 
 query_engine = index.as_query_engine()
-response = query_engine.query("Какие основания для получения предоставления дополнительной меры социальной поддержки в виде единовременной компенсационной выплаты при рождении ребенка?")
-print(response)
+response = query_engine.query(Test)
